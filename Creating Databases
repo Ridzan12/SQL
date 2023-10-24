@@ -1,0 +1,270 @@
+-- CREATE TABLE
+
+-- Create customer table in database.
+
+CREATE TABLE
+	customer
+	(
+	customer_id SERIAL PRIMARY KEY,
+	first_name VARCHAR (50) UNIQUE NOT NULL,
+	password VARCHAR (50) NOT NULL,
+	email VARCHAR (250) UNIQUE NOT NULL,
+	created_at TIMESTAMP NOT NULL,
+	last_login TIMESTAMP
+	)
+	;
+	
+-- Create address table.
+
+CREATE TABLE 
+	address 
+	(
+    address_id SERIAL PRIMARY KEY,
+    street_address VARCHAR(255) UNIQUE NOT NULL,
+    city VARCHAR(100) UNIQUE NOT NULL ,
+    state VARCHAR(50),
+    postal_code VARCHAR(20),
+    country VARCHAR(100)
+	)
+	;
+	
+-- Create transactions table.
+
+CREATE TABLE
+	transactions
+	(
+	customer_id INTEGER REFERENCES customer(customer_id),
+	amount VARCHAR (50) UNIQUE NOT NULL,
+	transactions_date TIMESTAMP
+	)
+	;
+	
+-- INSERT
+
+-- Add information in customer table.
+
+INSERT INTO
+	customer
+	(
+	first_name,
+	password,
+	email,
+	created_at
+	)
+VALUES
+	(
+	'Ridzan', 
+	'blablabla', 
+	'rpznznz23@gmail.com', 
+	CURRENT_TIMESTAMP
+	)
+	;
+	
+SELECT 
+	*
+FROM
+	customer
+	;
+	
+-- Add information in address table.
+
+INSERT INTO
+	address
+	(
+	street_address,
+	city,
+	state,
+	postal_code,
+	country
+	)
+VALUES
+	(
+	'jl gladiol 200C',
+	'malang',
+	'Indonesia',
+	'2000',
+	'Indonesia'
+	)
+	;
+	
+SELECT
+	*
+FROM
+	address
+	;
+	
+-- Add information in transactions table.
+
+INSERT INTO
+	transactions
+	(customer_id,
+	 amount,
+	 transactions_date
+	)
+VALUES
+	(
+	'1',
+	'28974',
+	CURRENT_TIMESTAMP	
+	)
+	;
+	
+SELECT
+	*
+FROM
+	transactions
+	;
+	
+-- UPDATE
+
+-- Update new informations in last_login rows.
+UPDATE
+	customer
+SET last_login = CURRENT_TIMESTAMP
+	;
+	
+SELECT
+	*
+FROM
+	customer
+	;
+	
+-- Update transaction_date = customer.created_at
+
+UPDATE
+	transactions
+SET
+	transactions_date = customer.created_at
+FROM
+	customer
+WHERE 
+	transactions.customer_id = customer.customer_id
+	;
+
+SELECT
+	*
+FROM
+	transactions
+	;
+
+-- DELETE
+
+-- 
+
+DELETE FROM
+	transactions
+WHERE
+	amount = '43253'
+	;
+
+SELECT
+	*
+FROM
+	transactions
+	;
+	
+--  ALTER
+
+-- Rename product table.
+
+CREATE TABLE
+	product
+	(
+	product_id SERIAL PRIMARY KEY,
+	name VARCHAR (200) NOT NULL,
+	price VARCHAR (50) UNIQUE NOT NULL
+	)
+	;
+SELECT
+	*
+FROM
+	product
+	;
+	
+ALTER TABLE
+	product
+RENAME TO 
+	brand
+	;
+	
+SELECT
+	*
+FROM
+	brand
+	
+-- Rename name column into product
+
+ALTER TABLE
+	brand
+RENAME COLUMN
+	name TO product
+	;
+
+UPDATE brand
+SET price = 0  
+WHERE price IS NULL AND product IS NULL
+	;
+
+INSERT INTO 
+	brand 
+	(product,
+	price)
+VALUES
+	('sabun',
+	'200')
+	;
+
+SELECT
+	*
+FROM
+	brand
+	;
+-- DROP
+
+-- Delete price column.
+
+ALTER TABLE
+	brand
+DROP COLUMN
+	price
+	;
+-- CHECK
+
+-- 
+
+CREATE TABLE
+	country
+	(
+	country_id SERIAL PRIMARY KEY,
+	country VARCHAR (100) NOT NULL,
+	district VARCHAR (100) NOT NULL,
+	last_update DATE CHECK (last_update > '2000-01-01'),
+	created_at DATE CHECK (created_at > last_update)
+	)
+	;
+	
+INSERT INTO
+	country
+	(
+	country,
+	district,
+	last_update,
+	created_at
+	)
+VALUES
+	(
+	'Jakarta',
+	'jawa timur',
+	'1990-11-25',
+	'1980-01-01'
+	)
+	;
+	
+SELECT
+	*
+FROM
+	country
+	;
+
+-- 
+-- 
