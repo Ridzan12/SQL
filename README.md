@@ -1,2 +1,1 @@
-I use postgresql to write this syntax. but I can also use google bigquery.
-The dataset from dvd rental database and exercise database. you can download the database if you want to verified my syntax. Thank you.
+For the best practice, I chose the 'dvdrental' database. I am honing my skills in writing SQL syntax using PostgreSQL. The reason for choosing PostgreSQL is because it is easier for beginners. However, now I am capable of using other SQL language tools such as Google BigQuery and MySQL.
